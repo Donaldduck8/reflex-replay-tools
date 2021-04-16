@@ -7,6 +7,6 @@ This is a collection of reverse engineering specifications regarding Reflex Aren
 ![](img/shot_comp.gif)
 
 ## Dumping
-`print_replay.py` gives insight into the inner workings of a replay by dumping its contents in a human-readable, convenient text format. 
+`print_replay.py` gives insight into the inner workings of a replay by dumping its contents in a human-readable and convenient text format. 
 
 ![](img/print_replay.png)

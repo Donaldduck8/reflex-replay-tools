@@ -5,8 +5,6 @@ import sys
 import copy
 import datetime
 
-import collections.abc
-
 from replay import *
 
 
@@ -46,38 +44,6 @@ def extract_player_info(replay):
                         print(update)
 
     return info
-
-
-def print_good(root, lvl=0):
-    prefix = "\t" * lvl
-
-    if isinstance(root, dict):
-        for k,v in root.items():
-            if k.startswith("_") or v == None:
-                continue
-
-            # ULTRA HACK to avoid printing masks
-            if re.match(r"m\d+$", k):
-                continue
-
-            if k == "faceTable":
-                print(prefix + k)
-                print(prefix + "\t" + " ".join([str(x) for x in v]))
-            elif isinstance(v, collections.Container) and not isinstance(v, str):
-                print(prefix + k)
-                print_good(v, lvl+1)
-            else:
-                print(prefix + k, str(v))
-    elif isinstance(root, list):
-        for i,v in enumerate(root):
-            if isinstance(v, collections.Container) and not isinstance(v, str):
-                print_good(v, lvl)
-
-                # I wanna print a newline here if there's another entry after this one
-                if i != len(root) - 1:
-                    print()
-            else:
-                print(prefix + str(v))
 
 
 def transplant_wrapper(donor_p, recipient_p, write_p):
@@ -218,17 +184,6 @@ def transplant(donor, recipient):
     #recipient.ticks = recipient.ticks[:1255]
 
     return recipient
-
-
-def test_print():
-    test_p = "E:\\reflexfps\\reflexfps\\replays\\transplant_test\\rrwc19-2_out.rep"
-
-    with open(test_p, "rb") as test_f:
-        test_d = bytearray(test_f.read())
-
-    replay = Replay.parse(test_d)
-
-    print_good(replay)
 
 
 if __name__ == "__main__":
